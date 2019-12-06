@@ -25,6 +25,7 @@ namespace WebApplicationDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Context>();
             services.AddControllers();
         }
 
@@ -43,6 +44,9 @@ namespace WebApplicationDemo
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            var context = new DatabaseSeeder(new Context());
+            context.Seed();
         }
     }
 }
